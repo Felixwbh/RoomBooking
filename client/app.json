@@ -1,13 +1,40 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/addCgi/addCgi"
+    "pages/addCgi/addCgi",
+
+    "pages/reservedRoom/index",
+    "pages/reservedRoom/roomInfo/roomInfo",
+
+    "pages/chooseRoom/index",
+    "pages/chooseRoom/roomList/roomList",
+    "pages/chooseRoom/roomInfo/roomInfo"
   ],
   "window":{
     "backgroundColor":"#F6F6F6",
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "Wafer Quick Start",
+    "navigationBarTitleText": "RoomBooking",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/chooseRoom/index",
+        "iconPath": "pages/images/icon/roomIcon.png",
+        "selectedIconPath": "pages/images/icon/roomselected.png",
+        "text": "预定会议室"
+      },
+      {
+        "pagePath": "pages/reservedRoom/index",
+        "iconPath": "pages/images/icon/myIcon.png",
+        "selectedIconPath": "pages/images/icon/myselected.png",
+        "text": "已定会议室"
+      }
+    ]
   }
 }

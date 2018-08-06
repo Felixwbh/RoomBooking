@@ -1,0 +1,28 @@
+<!--pages/chooseRoom/chooseRoom.wxml-->
+<view class='container'>
+    <view class='head'>
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2019-07-01"                    bindchange="bindDate">
+        <view class='content'>
+          <view class="picker-title">选择日期 </view>
+          <view class='picker-content'>{{date}}</view>
+        </view>
+      </picker>
+      <picker mode="time" value="{{time}}" start="09:00" end="21:00"                              bindchange="bindStartTime">
+        <view class='content'>  
+          <view class="picker-title">开始时间</view>
+          <view class='picker-content'>{{startTime}}</view>
+        </view>
+      </picker>
+      <picker mode="time" value="{{time}}" start="09:00" end="21:00"                              bindchange="bindEndTime">
+        <view class='content'>
+          <view class="picker-title">结束时间</view>
+          <view class='picker-content'>{{endTime}}</view>
+        </view>
+      </picker>
+    </view>
+  <view class='foot'>
+    <button class='scanRoom' type='primary' bindtap='scanRoom'>搜索</button>
+  </view>
+
+</view>
+

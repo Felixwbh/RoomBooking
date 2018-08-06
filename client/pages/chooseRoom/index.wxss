@@ -1,0 +1,34 @@
+/* pages/chooseRoom/chooseRoom.wxss */
+.head{
+  height: 30%;
+  margin-top: 20px;
+}
+
+.head .content{
+  display: flex;
+  flex-direction: row;
+  height: 10%;
+  width: 100%;
+  border-bottom: 2rpx solid #f2f2f2;
+}
+
+.head .content .picker-title{
+  width: 150px;
+  font-size: 15pt;
+   padding-bottom: 5rpx;
+  padding-top: 15rpx;
+}
+
+.head .content .picker-content{
+  width: 150px;
+  font-size: 15pt;
+  padding-bottom: 5rpx;
+  padding-top: 15rpx;
+  color: #888888;
+}
+
+.foot{
+  width: 40%;
+  margin-top: 10%;
+}
+

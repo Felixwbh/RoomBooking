@@ -1,0 +1,46 @@
+/* pages/roomInfo/roomInfo.wxss */
+
+.info-head{
+  width: 90%;
+  margin-left: 5%;
+}
+
+.info-head .head-image{
+  text-align: center;
+  height: 30%;
+}
+
+.info-head .head-image .position{
+  width: 200px;
+  height: 200px;
+}
+
+.info-head .head-content{
+  display: flex;
+  height: 10%;
+  flex-direction: row;
+  font-size: 15pt;
+  border-bottom: 2rpx solid #f2f2f2;
+  padding-bottom: 10rpx;
+  padding-top: 15rpx;
+}
+
+.info-head .head-content .title{
+  width: 60%;
+}
+
+.info-head .head-content .content{
+  width: 40%;
+  color: #888888;
+}
+
+.info-body{
+  width: 40%;
+  margin-left: 50%;
+  margin-top: 10%;
+}
+
+.info-foot{
+  width: 50%;
+  margin-top: 10%;
+}

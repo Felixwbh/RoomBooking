@@ -1,0 +1,30 @@
+<!--pages/roomInfo/roomInfo.wxml-->
+<view class='container'>
+  <view class='info-head'>
+    <view class='head-image'>
+      <image class='position' src='{{choosedRoom.position}}'></image>
+    </view>
+    <view class='head-content'>
+      <view class='title'>教学馆</view>
+      <view class='content'>{{choosedRoom.building}}</view>
+    </view>
+    <view class='head-content'>
+      <view class='title'>楼层</view>
+      <view class='content'>{{choosedRoom.floor}}</view>
+    </view>
+    <view class='head-content'>
+      <view class='title'>房间号</view>
+      <view class='content'>{{choosedRoom.num}}</view>
+    </view>
+    <view class='head-content'>
+      <view class='title'>容纳人数</view>
+      <view class='content'>{{choosedRoom.capacity}}</view>
+    </view>
+  </view> 
+  <view class='info-body'>
+    <button plain='true' type='default'>近期空闲时段</button>
+  </view>
+  <view class='info-foot'>
+    <button type='primary' bindtap='reserveRoom'>{{operation}}</button>
+  </view>
+</view>

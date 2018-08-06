@@ -1,0 +1,74 @@
+<!--pages/roomList/roomList.wxml-->
+<view class="container">
+  <!--顶部筛选-->
+  <view class="filter">
+    <picker bindchange="changeBuilding" value="{{currentBuilding}}" 
+    range="{{building}}" range-key="name">
+      <view class="picker">
+        {{building[currentBuilding].name}}
+      </view>
+    </picker>
+    <picker bindchange="changeFloor" value="{{currentFloor}}" 
+      range="{{floor}}" range-key="name">
+      <view class="picker">
+        {{floor[currentFloor].name}}
+      </view>
+    </picker>
+    <picker bindchange="changeCapacity" value="{{currentCapacity}}" 
+      range="{{capacity}}" range-key="name">
+      <view class="picker">
+        {{capacity[currentCapacity].name}}
+      </view>
+    </picker>
+    <view class="picker filter-toggle" bindtap="bindMore">综合</view>
+  </view>
+  <!--综合筛选-->
+  <view wx:if="{{isMore}}" class="filter-expand">
+    <view class="filter-expand-shadow"></view>
+    <view class="filter-expand-body">
+      <view class="filter-section">
+        <view class="filter-section-title">教学馆:</view>
+        <view wx:for="{{building}}" wx:key="id" data-id="{{tempBuilding.id}}" wx:for-item="tempBuilding" class="filter-item {{filterBuilding == tempBuilding.id ? 'active' : ''}}" bindtap="bindBuildingChange">
+          {{tempBuilding.name}}
+        </view>
+      </view>
+      <view class="filter-section">
+        <view class="filter-section-title">楼层:</view>
+        <view wx:for="{{floor}}" wx:key="id" wx:for-item="tempFloor" data-id="{{tempFloor.id}}" class="filter-item {{filterFloor == tempFloor.id ? 'active' : ''}}" bindtap="bindFloorChange">
+          {{tempFloor.name}}
+        </view>
+      </view>
+      <view class="filter-section">
+        <view class="filter-section-title">容纳人数: </view>
+        <view wx:for="{{capacity}}" wx:key="id" wx:for-item="tempCapacity" data-id="{{tempCapacity.id}}" class="filter-item {{filterCapacity == tempCapacity.id ? 'active' : ''}}" bindtap="bindCapacityChange">
+          {{tempCapacity.name}}
+        </view>
+      </view>
+      <view class="filter-section filter-op">
+        <view class="filter-cancel" bindtap="filterCancel">
+          取消
+        </view>
+        <view class="filter-confirm" bindtap="filterConfirm">
+          确认
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--会议室列表-->
+  <scroll-view scroll-y="true" style="height: 100%" lower-threshold="50">
+    <view wx:for="{{list}}" wx:key="id" wx:for-item="room" class="room-item">
+      <view class="room-img">
+        <image src="{{room.image}}" class="img-responsive" id="{{house.id}}"/>
+      </view>
+      <view class="room-meta" bindtap="roomDetail" data-room='{{room}}'>
+        <view class="room-name">{{room.building}}</view>
+        <view class="room-position">
+          <view class="room-floor">{{room.floor}}</view>
+          <view class="room-num">{{room.num}}</view>
+        </view>
+        <view class="room-capacity">容纳人数：{{room.capacity}}人</view>
+      </view>
+    </view>
+  </scroll-view>
+
+</view> 
