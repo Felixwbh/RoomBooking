@@ -58,7 +58,7 @@
   <scroll-view scroll-y="true" style="height: 100%" lower-threshold="50">
     <view wx:for="{{list}}" wx:key="id" wx:for-item="room" class="room-item">
       <view class="room-img">
-        <image src="{{room.image}}" class="img-responsive" id="{{house.id}}"/>
+        <image src="{{room.image}}" class="img-responsive" id="{{room.id}}"/>
       </view>
       <view class="room-meta" bindtap="roomDetail" data-room='{{room}}'>
         <view class="room-name">{{room.building}}</view>

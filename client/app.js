@@ -7,8 +7,14 @@ App({
         qcloud.setLoginUrl(config.service.loginUrl)
     },
     globalData:{
-      choosedRoom: {},
-      isReserved: false,
+      userInfo: null,
+      client: null,
+      mqttParam: {
+        server: 'test001.mqtt.iot.gz.baidubce.com',
+        username: 'test001/device001',
+        password: '1W967P+DmkDGBUqtV7vXLPT3VI6veP2TDNE23C5L4VM=',
+        topic: 'topic001'
+      },
       roomList: [
         {
           id: '0001',

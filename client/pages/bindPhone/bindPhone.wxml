@@ -1,0 +1,9 @@
+<!--pages/bindPhone/bindPhone.wxml-->
+<view class='container'>
+  <view class='body'>
+    <input class='phoneNum' type='number' placeholder='请输入手机号' bindinput='getPhone'  maxlength='11'></input>
+    <button class='bindConfirm' type='primary' bindtap='bindConfirm'>绑定</button>
+  </view>
+  <view class='foot'>
+  </view>
+</view>

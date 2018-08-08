@@ -1,28 +1,71 @@
 <!--pages/chooseRoom/chooseRoom.wxml-->
 <view class='container'>
+    <image class='background' src='/pages/images/background/background1.jpeg'></image>
     <view class='head'>
-      <picker mode="date" value="{{date}}" start="2015-09-01" end="2019-07-01"                    bindchange="bindDate">
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2019-07-01"                           bindchange="bindDate">
         <view class='content'>
           <view class="picker-title">选择日期 </view>
-          <view class='picker-content'>{{date}}</view>
+          <view class='picker-content'>{{date}} {{weekDay}}</view>
         </view>
       </picker>
-      <picker mode="time" value="{{time}}" start="09:00" end="21:00"                              bindchange="bindStartTime">
+      <picker mode='multiSelector' value="{{startTimeListIndex}}" 
+        range='{{startTimeList}}' bindchange="bindStartTime">
         <view class='content'>  
           <view class="picker-title">开始时间</view>
           <view class='picker-content'>{{startTime}}</view>
         </view>
       </picker>
-      <picker mode="time" value="{{time}}" start="09:00" end="21:00"                              bindchange="bindEndTime">
-        <view class='content'>
-          <view class="picker-title">结束时间</view>
-          <view class='picker-content'>{{endTime}}</view>
+      <view class='content'>
+        <view class="choose-title">持续时间</view>
+        <view class='minusImg'>
+          <image style='width: 13px; height: 13px' bindtap='bindMinus'
+          src='/pages/images/icon/minus.png'></image>
         </view>
-      </picker>
+        <view class='choose-content'>{{keepTime}} h</view>
+        <view class='addImg' >
+          <image style='width: 13px; height: 13px' bindtap='bindAdd'
+          src='/pages/images/icon/add.png'></image>
+        </view>
+      </view>
     </view>
-  <view class='foot'>
-    <button class='scanRoom' type='primary' bindtap='scanRoom'>搜索</button>
-  </view>
+    <view class='body'>
+      <button class='longTimeBook' type='default' bindtap='bindLongTimeBook'>
+      连续预定</button>
+      <!--长期预定弹窗-->
+      <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove"
+      wx:if="{{showModal}}"></view>
+      <view class="modal-dialog" wx:if="{{showModal}}">
+        <view class="modal-title">当前可连续预定{{weekNum}}周</view>
+        <view class="modal-content">
+          <picker range='{{startWeek}}' value='{{startWeekIndex}}'                                      bindchange='changeStartWeek'>
+            <view class='content'>
+              <view class="picker-title">起始周</view>
+              <view class='picker-content'>{{startWeek[startWeekIndex]}}</view>
+            </view>
+          </picker>
+          <picker range='{{week}}' value='{{weekIndex}}' bindchange='changeWeek'>
+            <view class='content'>
+              <view class="picker-title">星期</view>
+              <view class='picker-content'>{{week[weekIndex]}}</view>
+            </view>
+          </picker>
+          <picker range='{{continuousWeek}}' value='{{continuousWeekIndex}}' 
+            bindchange='changeContinuousWeek'>
+            <view class='content'>
+              <view class="picker-title">连续星期</view>
+              <view class='picker-content'>{{continuousWeek[continuousWeekIndex]}}</view>
+            </view>
+          </picker>
+        </view>
+        <view class="modal-footer">
+          <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+          <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+        </view>
+      </view>
+    </view>
+    <view class='foot'>
+      <button type='primary' bindtap='scanRoom'>搜索</button>
+    </view>
 
 </view>
 

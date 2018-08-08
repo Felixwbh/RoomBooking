@@ -26,18 +26,31 @@
 }
 
 .info-head .head-content .title{
-  width: 60%;
+  width: 45%;
 }
 
 .info-head .head-content .content{
-  width: 40%;
+  width: 55%;
   color: #888888;
 }
 
 .info-body{
+  display: flex;
+  width: 80%;
+  margin-top: 5%;
+}
+
+.info-body .open{
   width: 40%;
-  margin-left: 50%;
-  margin-top: 10%;
+  /* background-color: lightskyblue; */
+  /* color: white; */
+}
+
+.info-body .close{
+  width: 40%;
+  margin-left: 10%;
+  /* background-color: lightskyblue;
+  color: white; */
 }
 
 .info-foot{

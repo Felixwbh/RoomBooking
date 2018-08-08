@@ -1,0 +1,24 @@
+<view class='container'>
+  <view class='head'>
+    <view class='head-content'>当前预定</view>
+  </view>
+  <view class='body'>
+    <!--会议室列表-->
+    <scroll-view scroll-y="true" style="height: 250px" lower-threshold="50">
+      <view wx:for="{{reservedRoomList}}" wx:key="id" wx:for-item="room" class="room-item">
+        <view class="room-img">
+          <image src="{{room.image}}" class="img-responsive" id="{{room.id}}"/>
+        </view>
+        <view class="room-meta" bindtap="roomDetail" data-room='{{room}}'>
+          <view class="room-name">{{room.building}}</view>
+          <view class="room-position">
+            <view class="room-floor">{{room.floor}}</view>
+            <view class="room-num">{{room.num}}</view>
+            <view class='room-time'>{{room.time}}</view>
+          </view>
+          <view class="room-capacity">容纳人数：{{room.capacity}}人</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

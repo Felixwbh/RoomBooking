@@ -20,11 +20,16 @@
       <view class='title'>容纳人数</view>
       <view class='content'>{{choosedRoom.capacity}}</view>
     </view>
+    <view class='head-content'>
+      <view class='title'>预定时间</view>
+      <view class='content'>{{choosedRoom.time}}</view>
+    </view>
   </view> 
   <view class='info-body'>
-    <button plain='true' type='default'>近期空闲时段</button>
+    <button class='open' type='primary' bindtap='bindOpen'>开门</button>
+    <button class='close' type='default' bindtap='bindClose'>关门</button>
   </view>
   <view class='info-foot'>
-    <button type='primary' bindtap='reserveRoom'>{{operation}}</button>
+    <button type='warn' bindtap='reserveRoom'>取消预定</button>
   </view>
 </view>

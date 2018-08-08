@@ -1,1 +1,67 @@
 /* pages/reservedRoom/index.wxss */
+.head{
+  height: 10%;
+}
+
+.head .head-content{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.body .room-item {
+  position: relative;
+  width: 100%;
+  height: 240rpx;
+  margin-bottom: 30rpx;
+  border-bottom: 2rpx solid #f2f2f2;
+  padding-bottom: 30rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  font-size: 14px;
+}
+
+.body .room-item .room-img {
+  float: left;
+  width: 240rpx;
+  height: 240rpx;
+}
+
+.body .room-item .room-img .img-responsive {
+  width: 120px;
+  height: 120px;
+}
+
+.body .room-item .room-meta {
+  position: relative;
+  float: left;
+  width: 400rpx;
+  height: 240rpx;
+  padding-left: 30rpx;
+}
+
+.body .room-item .room-meta .room-name {
+  height: 40rpx;
+  padding-bottom: 20rpx;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
+.room-item .room-meta .room-position {
+  float: left;
+  padding-bottom: 20rpx;
+}
+
+.room-item .room-meta .room-num {
+  color: black;
+}
+
+.room-item .room-meta .room-time {
+  color: #ea1218;
+}
+
+.room-item .room-meta .room-capacity {
+  position: absolute;
+  bottom: 0;
+  color: #999;
+}

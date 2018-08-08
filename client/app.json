@@ -1,7 +1,7 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/addCgi/addCgi",
+    "pages/bindPhone/bindPhone",
 
     "pages/reservedRoom/index",
     "pages/reservedRoom/roomInfo/roomInfo",

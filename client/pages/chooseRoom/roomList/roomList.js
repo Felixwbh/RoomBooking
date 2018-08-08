@@ -135,10 +135,9 @@ Page({
    * 处理会议室详细信息
    */
   roomDetail: function(e){
-    app.globalData.choosedRoom = e.currentTarget.dataset.room;
-    app.globalData.isReserved = false;
+    let choosedRoom = JSON.stringify(e.currentTarget.dataset.room)
     wx.navigateTo({
-      url: '../roomInfo/roomInfo'
+      url: '../roomInfo/roomInfo?choosedRoom=' + choosedRoom
     })
   }
 })
