@@ -1,5 +1,9 @@
 // pages/chooseRoom/chooseRoom.js
 const util = require('../../utils/util.js');
+var qcloud = require('../../vendor/wafer2-client-sdk/index.js')
+var config = require('../../config.js');
+
+const app = getApp()
 
 Page({
 
@@ -52,7 +56,7 @@ Page({
   },
 
   /**
-   * 输入日期
+   * 选择日期
    */
   bindDate: function(e){
     let choosedDate = e.detail.value
@@ -81,7 +85,7 @@ Page({
       let singleDay = date.getDay()
       this.setData({
         date: e.detail.value,
-        weakDay: this.data.week[singleDay],
+        weekDay: this.data.week[singleDay],
       })
     }
   },
@@ -131,14 +135,18 @@ Page({
    * 加减持续时间
    */
   bindAdd: function(){
-    if(this.data.keepTime < 12.5){
+    let startTime = this.data.startTime
+    let hour = parseInt(startTime.split(':')[0])
+    let minute = parseInt(startTime.split(':')[1])
+    let lastingTime = (20 - hour) + (minute == 30 ? 0 : 0.5)
+    if(this.data.keepTime < lastingTime){
       this.setData({
         keepTime: this.data.keepTime + 0.5
       })
     }else{
       wx.showModal({
         title: '无效时长',
-        content: '单天时长最多为12.5个小时',
+        content: '会议室开放时间最晚到晚上8点半，您的时长已超出！',
       })
     }
   },
@@ -191,13 +199,14 @@ Page({
     })
   },
 
-  onCancel: function(){ //取消弹窗
+  onCancel: function(){ //取消连续预定
     this.setData({
-      showModal: !this.data.showModal
+      showModal: !this.data.showModal,
+      isContinuous: false
     })
   },
 
-  onConfirm: function(){  //确定弹窗，获取数据
+  onConfirm: function(){  //确定连续预定，获取数据
     let date = new Date(this.data.currentDay)
     let weekDayNum = date.getDay()
     if (this.data.startWeekIndex == 0) {
@@ -223,15 +232,37 @@ Page({
 
 
   scanRoom: function(){
-    wx.navigateTo({
-      url: './roomList/roomList',
-    })
     if(!this.data.isContinuous){   //单次预定
-      let info = {
+      app.globalData.reserveInfo = {
         date: this.data.date,
         startTime: this.data.startTime,
         keepTime: this.data.keepTime,
       }
+      wx.showLoading({
+        title: '正在搜索',
+      })
+      var that = this
+      qcloud.request({
+        url: `${config.service.host}/weapp/chooseRoom`,
+        data: {
+          date: that.data.date,
+          startTime: that.data.startTime,
+          keepTime: that.data.keepTime,
+        },
+        login: false,
+        success(result) {
+          console.log(result)
+          wx.hideLoading()
+          let roomList = JSON.stringify(result.data.data.roomList)
+          wx.navigateTo({
+            url: './roomList/roomList?roomList=' + roomList,
+          })
+          console.log('搜索成功！')
+        },
+        fail(error) {
+          console.log('搜索失败！',error)
+        }
+      })
     }else{   //连续预定
 
     }

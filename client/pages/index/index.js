@@ -1,40 +1,16 @@
 //index.js
-//获取mqtt客户端
-var { Client, Message } = require('../../utils/paho-mqtt.js')
 //获取全局变量
 const app = getApp()
-var status = true
+var qcloud = require('../../vendor/wafer2-client-sdk/index.js')
+var config = require('../../config.js')
+
 
 Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    test: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    client: null,
-    index: 0,
-    nodeList: [{ id: '12', name: 'node1' }, { id: '123', name: 'node3' }]
-  },
-
-  /*
-  **事件处理函数
-  */
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-
-  /*
-  **获取用户信息
-  */
-  getUserInfo: function (e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+    openid: '',
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
   /*
@@ -67,20 +43,47 @@ Page({
         }
       })
     }
+    var that = this
+    // 加入callback处理获取 openid 不同步
+    app.openidReadyCallback = res => {
+      this.setData({
+        openid: res
+      })
+      // 判断用户 openid 是否已经绑定手机号
+      qcloud.request({
+        url: `${config.service.host}/weapp/checkOpenId`,
+        data: {
+          openid: that.data.openid
+        },
+        login: false,
+        success(res) {
+          let userArray = res.data.data.result  // 数据库select之后返回的数组
+          if(userArray.length > 0){ // 已经绑定过手机，进入预定会议室界面
+            wx.switchTab({
+              url: '../chooseRoom/index',
+            })
+          }else{  // 未绑定过手机，进入绑定手机界面
+            wx.navigateTo({
+              url: '../bindPhone/bindPhone?openid=' + that.data.openid,
+            })
+          }
+        },
+        fail(error) {
+          console.log('失败！', error)
+        }
+      })
+    }
   },
 
-  bindPhone: function(){
-    wx.navigateTo({
-      url: '../bindPhone/bindPhone',
-    })
-  },
-
-  chooseRoom: function(){
-    wx.navigateTo({
-      url: '../chooseRoom/chooseRoom',
+  /*
+  **获取用户信息
+  */
+  getUserInfo: function (e) {
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
     })
   }
-
-
 
 })

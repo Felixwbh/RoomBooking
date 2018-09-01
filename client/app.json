@@ -5,6 +5,7 @@
 
     "pages/reservedRoom/index",
     "pages/reservedRoom/roomInfo/roomInfo",
+    "pages/reservedRoom/historyReservation/historyReservation",
 
     "pages/chooseRoom/index",
     "pages/chooseRoom/roomList/roomList",

@@ -1,38 +1,51 @@
+const util = require('../../utils/util.js');
+var qcloud = require('../../vendor/wafer2-client-sdk/index.js')
+var config = require('../../config.js');
+
+const app = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    reservedRoomList: [
-      {
-        id: '0001',
-        building: '信息学馆',
-        floor: '二楼',
-        capacity: 8,
-        time: '2018-8-10 12:00',
-        image: '/pages/images/room/room1.jpg',
-        position: '/pages/images/position/position.png',
-        num: 'a-213'
-      },
-      {
-        id: '0002',
-        building: '信息学馆',
-        floor: '三楼',
-        capacity: 22,
-        time: '2018-9-1 13:30',
-        image: '/pages/images/room/room2.jpg',
-        position: '/pages/images/position/position.png',
-        num: 'b-312'
-      }
-    ]
+    reservedRoomList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    
+  onShow: function (options) {
+    var time = util.formatTime(new Date())
+    var currentDate = time.split(' ')[0]
+    var currentTime = time.split(' ')[1]
+    // 向数据库请求当前用户已预定会议室
+    var that = this
+    qcloud.request({
+      url: `${config.service.host}/weapp/reservedRoom`,
+      data: {
+        openid: app.globalData.openid,
+        currentDate: currentDate,
+        currentTime: currentTime
+      },
+      login: false,
+      success(result) {
+        console.log(result)
+        that.setData({
+          reservedRoomList: result.data.data.reservedRoom
+        })
+        if (result.data.data.reservedRoom.length == 0){
+          wx.showToast({
+            title: '当前没有已预定会议室',
+          })
+        }
+        console.log('已预定会议室返回成功！')
+      },
+      fail(error) {
+        console.log('已预定会议室返回失败！', error)
+      }
+    })
   },
 
   /**
@@ -43,8 +56,14 @@ Page({
     wx.navigateTo({
       url: './roomInfo/roomInfo?choosedRoom=' + choosedRoom,
     })
-    this.setData({
-      choosedRoom: e.currentTarget.dataset.room
+  },
+
+  /**
+   * 查看历史预定
+   */
+  showHistory: function(){
+    wx.navigateTo({
+      url: './historyReservation/historyReservation',
     })
   }
 

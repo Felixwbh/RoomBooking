@@ -4,6 +4,10 @@ const app = getApp()
 var { Client, Message } = require('../../../utils/paho-mqtt.js')
 var status = true
 
+const util = require('../../../utils/util.js');
+var qcloud = require('../../../vendor/wafer2-client-sdk/index.js')
+var config = require('../../../config.js');
+
 Page({
 
   /**
@@ -45,9 +49,6 @@ Page({
    */
   doConnect: function () {
     if (app.globalData.client && app.globalData.client.isConnected()) {
-      wx.showToast({
-        title: '不要重复连接',
-      })
       return
     }
     //第一次连接
@@ -104,13 +105,15 @@ Page({
   **处理开门和关门
   */
   bindOpen: function () {
-    let message = { des: 'server', target: 'unlock', id: '2' };
+    let r_id = this.data.choosedRoom.r_id
+    let message = { des: 'server', target: 'unlock', id: r_id, lasting: 1};
     let sendMessage = JSON.stringify(message)
     app.globalData.client.publish(app.globalData.mqttParam.topic, sendMessage)
   },
 
   bindClose: function () {
-    let message = { des: 'server', target: 'lock', id: '2' };
+    let r_id = this.data.choosedRoom.r_id
+    let message = { des: 'server', target: 'lock', id: r_id };
     let sendMessage = JSON.stringify(message)
     app.globalData.client.publish(app.globalData.mqttParam.topic, sendMessage)
   },
@@ -119,11 +122,34 @@ Page({
    * 预定会议室
    */
   reserveRoom: function(){
-    wx.showToast({
-      title: '取消成功',
-    })
+    let r_id = this.data.choosedRoom.r_id
     //添加数据库预定信息
-    
+    wx.showModal({
+      title: '取消预定',
+      content: '是否确定取消预定该会议室？',
+      success: function(res){
+        if(res.confirm){
+          qcloud.request({
+            url: `${config.service.host}/weapp/cancelReservation`,
+            data: {
+              openid: app.globalData.openid,
+              r_id: r_id
+            },
+            login: false,
+            success(result) {
+              console.log(result)
+              wx.switchTab({
+                url: '/pages/reservedRoom/index',
+              })
+              console.log('取消成功！')
+            },
+            fail(error) {
+              console.log('取消失败！', error)
+            }
+          })
+        }
+      }
+    })
   }
 
 })

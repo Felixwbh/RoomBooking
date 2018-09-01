@@ -7,8 +7,4 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <view class='body'>
-    <button class='bindPhone' bindtap='bindPhone' type='primary'>绑定手机号</button>
-    <button class='chooseRoom' bindtap='chooseRoom'>选择会议室</button>
-  </view>
 </view>

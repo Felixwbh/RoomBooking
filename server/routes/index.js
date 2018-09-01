@@ -16,4 +16,19 @@ router.get('/login', authorizationMiddleware, controllers.login)
 // 用户信息接口（可以用来验证登录态）
 router.get('/user', validationMiddleware, controllers.user)
 
+// 匹配openid
+router.get('/checkOpenId', controllers.checkOpenId)
+// 绑定手机号
+router.get('/bindPhone', controllers.bindPhone)
+// 筛选会议室
+router.get('/chooseRoom', controllers.chooseRoom)
+// 预定会议室
+router.get('/reserveRoom', controllers.reserveRoom)
+// 已经预定会议室
+router.get('/reservedRoom', controllers.reservedRoom)
+// 取消预定
+router.get('/cancelReservation', controllers.cancelReservation)
+// 查看历史预定
+router.get('/historyReservation', controllers.historyReservation)
+
 module.exports = router

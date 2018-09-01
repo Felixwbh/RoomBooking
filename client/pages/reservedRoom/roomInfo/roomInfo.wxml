@@ -2,27 +2,27 @@
 <view class='container'>
   <view class='info-head'>
     <view class='head-image'>
-      <image class='position' src='{{choosedRoom.position}}'></image>
+      <image class='position' src='{{choosedRoom.r_guide_pic_path}}'></image>
     </view>
     <view class='head-content'>
       <view class='title'>教学馆</view>
-      <view class='content'>{{choosedRoom.building}}</view>
+      <view class='content'>{{choosedRoom.r_building}}</view>
     </view>
     <view class='head-content'>
       <view class='title'>楼层</view>
-      <view class='content'>{{choosedRoom.floor}}</view>
+      <view class='content'>{{choosedRoom.r_floor}}</view>
     </view>
     <view class='head-content'>
       <view class='title'>房间号</view>
-      <view class='content'>{{choosedRoom.num}}</view>
+      <view class='content'>{{choosedRoom.r_name}}</view>
     </view>
     <view class='head-content'>
       <view class='title'>容纳人数</view>
-      <view class='content'>{{choosedRoom.capacity}}</view>
+      <view class='content'>{{choosedRoom.r_capacity}}</view>
     </view>
     <view class='head-content'>
       <view class='title'>预定时间</view>
-      <view class='content'>{{choosedRoom.time}}</view>
+      <view class='content'>{{choosedRoom.o_date}} {{choosedRoom.o_begin_time}}</view>
     </view>
   </view> 
   <view class='info-body'>

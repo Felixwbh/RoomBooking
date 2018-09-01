@@ -4,8 +4,59 @@ var config = require('./config')
 
 App({
     onLaunch: function () {
-        qcloud.setLoginUrl(config.service.loginUrl)
+      // qcloud.setLoginUrl(config.service.loginUrl)
+      // 展示本地存储能力
+      var logs = wx.getStorageSync('logs') || []
+      logs.unshift(Date.now())
+      wx.setStorageSync('logs', logs)
+      var that = this;
+      // 登录
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          var code = res.code;
+          var appId = 'wx20d8493ca5a5a537';
+          var secret = '645952eb87d55e8366233ab23bcd6857';
+          wx.request({
+            url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appId + '&secret=' 
+              + secret + '&js_code=' + code + '&grant_type=authorization_code',
+            data: {},
+            header: {
+              'content-type': 'json'
+            },
+            success: function (res) {
+              // 由于获取 openid 是网络请求，可能会在 Page.onload 之后才返回
+              // 所以此处加入 callback 以防止这种情况
+              that.globalData.openid = res.data.openid
+              if(that.openidReadyCallback){
+                that.openidReadyCallback(res.data.openid )
+              }
+            }
+          })
+        }
+      })
+      // 获取用户信息
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              success: res => {
+                // 可以将 res 发送给后台解码出 unionId
+                that.globalData.userInfo = res.userInfo
+
+                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+                // 所以此处加入 callback 以防止这种情况
+                if (this.userInfoReadyCallback) {
+                  this.userInfoReadyCallback(res)
+                }
+              }
+            })
+          }
+        }
+      })
     },
+
     globalData:{
       userInfo: null,
       client: null,
@@ -15,61 +66,8 @@ App({
         password: '1W967P+DmkDGBUqtV7vXLPT3VI6veP2TDNE23C5L4VM=',
         topic: 'topic001'
       },
-      roomList: [
-        {
-          id: '0001',
-          building: '信息学馆',
-          floor: '二楼',
-          capacity: 8,
-          image: '/pages/images/room/room1.jpg',
-          position: '/pages/images/position/position.png',
-          num: 'a-213'
-        },
-        {
-          id: '0002',
-          building: '信息学馆',
-          floor: '三楼',
-          capacity: 22,
-          image: '/pages/images/room/room2.jpg',
-          position: '/pages/images/position/position.png',
-          num: 'b-312'
-        },
-        {
-          id: '0003',
-          building: '生命学馆',
-          floor: '二楼',
-          capacity: 14,
-          image: '/pages/images/room/room3.jpg',
-          position: '/pages/images/position/position.png',
-          num: 'a-213'
-        },
-        {
-          id: '0004',
-          building: '建筑学馆',
-          floor: '三楼',
-          capacity: 50,
-          image: '/pages/images/room/room4.jpg',
-          position: '/pages/images/position/position.png',
-          num: 'b-314'
-        },
-        {
-          id: '0005',
-          buliding: '文管学馆',
-          floor: '四楼',
-          capacity: 17,
-          image: '/pages/images/room/room5.jpg',
-          position: '/pages/images/position/position.png',
-          num: 'b-421'
-        },
-        {
-          id: '0006',
-          building: '建筑学馆',
-          floor: '二楼',
-          capacity: 30,
-          image: '/pages/images/room/room6.jpg',
-          position: '/pages/images/position/position.png',
-          num: 'a-215'
-        }
-      ]
+      openid: null,
+      reserveInfo: null,
+      roomList: []
     }
 })

@@ -85,8 +85,11 @@ function request(options) {
 
             success: function (response) {
                 var data = response.data;
-
                 var error, message;
+
+                // --测试
+                // console.log('测试：', data)
+
                 if ((data && data.code === -1) || response.statusCode === 401) {
                     Session.clear();
                     // 如果是登录态无效，并且还没重试过，会尝试登录后刷新凭据重新请求

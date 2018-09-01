@@ -58,15 +58,15 @@
   <scroll-view scroll-y="true" style="height: 100%" lower-threshold="50">
     <view wx:for="{{list}}" wx:key="id" wx:for-item="room" class="room-item">
       <view class="room-img">
-        <image src="{{room.image}}" class="img-responsive" id="{{room.id}}"/>
+        <image src="{{room.r_pic_path}}" class="img-responsive" id="{{room.r_id}}"/>
       </view>
       <view class="room-meta" bindtap="roomDetail" data-room='{{room}}'>
-        <view class="room-name">{{room.building}}</view>
+        <view class="room-name">{{room.r_building}}</view>
         <view class="room-position">
-          <view class="room-floor">{{room.floor}}</view>
-          <view class="room-num">{{room.num}}</view>
+          <view class="room-floor">{{room.r_floor}}</view>
+          <view class="room-num">{{room.r_name}}</view>
         </view>
-        <view class="room-capacity">容纳人数：{{room.capacity}}人</view>
+        <view class="room-capacity">容纳人数：{{room.r_capacity}}人</view>
       </view>
     </view>
   </scroll-view>

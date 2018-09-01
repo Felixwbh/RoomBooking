@@ -1,11 +1,11 @@
 <view class='container'>
   <view class='head'>
-    <view class='head-content'>当前预定</view>
+    <view class='head-content'>历史预定</view>
   </view>
   <view class='body'>
     <!--会议室列表-->
-    <scroll-view scroll-y="true" style="height: 400px" lower-threshold="50">
-      <view wx:for="{{reservedRoomList}}" wx:key="id" wx:for-item="room" class="room-item">
+    <scroll-view scroll-y="true" style="height: 100%" lower-threshold="50">
+      <view wx:for="{{historyReservation}}" wx:key="id" wx:for-item="room" class="room-item">
         <view class="room-img">
           <image src="{{room.r_pic_path}}" class="img-responsive" id="{{room.r_id}}"/>
         </view>
@@ -20,8 +20,5 @@
         </view>
       </view>
     </scroll-view>
-  </view>
-  <view class='foot'>
-    <button size='default' type='default' bindtap='showHistory'>查看历史预定</button>
   </view>
 </view>

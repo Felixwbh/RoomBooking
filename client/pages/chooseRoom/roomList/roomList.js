@@ -19,7 +19,18 @@ Page({
       {id: 3, name: '三楼'}, {id: 4, name: '四楼'}, {id: 5, name: '五楼'}],
     capacity:[{id: 0, name: '容纳人数'},{id: 1, name: '小于10人'}, 
       {id: 2, name: '10到20人'}, {id: 3, name: '20到30人'}, {id: 4, name: '大于30人'}],
-    list: app.globalData.roomList
+    list: []
+  },
+
+  /**
+   *生命周期函数--监听页面加载
+   */
+  onLoad: function(option){
+    let roomList = JSON.parse(option.roomList)
+    app.globalData.roomList = roomList
+    this.setData({
+      list: roomList
+    })
   },
 
   /**
@@ -108,22 +119,22 @@ Page({
     for(let i = 0; i < app.globalData.roomList.length; i++){
       let tempRoom = app.globalData.roomList[i];
       if(tempBuilding == 0 && tempFloor == 0){    //选择全部
-        if (tempRoom.capacity >= min && tempRoom.capacity < max){
+        if (tempRoom.r_capacity >= min && tempRoom.r_capacity < max){
           tempList.push(tempRoom)
         }
       }else if(tempBuilding != 0 && tempFloor == 0){    //楼层选择全部
-        if (tempRoom.building == buildingName && tempRoom.capacity >= min 
-          && tempRoom.capacity < max) {
+        if (tempRoom.r_building == buildingName && tempRoom.r_capacity >= min 
+          && tempRoom.r_capacity < max) {
           tempList.push(tempRoom)
         }
       }else if(tempBuilding == 0 && tempFloor != 0){    //教学馆选择全部
-        if (tempRoom.floor == floorName && tempRoom.capacity >= min
-          && tempRoom.capacity < max) {
+        if (tempRoom.r_floor == floorName && tempRoom.r_capacity >= min
+          && tempRoom.r_capacity < max) {
           tempList.push(tempRoom)
         }
       }else{
-        if(tempRoom.building == buildingName && tempRoom.floor == floorName
-          && tempRoom.capacity >= min && tempRoom.capacity < max){
+        if(tempRoom.r_building == buildingName && tempRoom.r_floor == floorName
+          && tempRoom.r_capacity >= min && tempRoom.r_capacity < max){
             tempList.push(tempRoom);
         }
       }
